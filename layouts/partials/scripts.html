@@ -1,0 +1,25 @@
+{{/* Main JavaScript file for site-wide logic */}}
+{{ $mainJS := resources.Get "js/main.js" | js.Build (dict "minify" true) | fingerprint }}
+<script src="{{ $mainJS.RelPermalink }}" integrity="{{ $mainJS.Data.Integrity }}" defer></script>
+
+{{/* Add other scripts here if needed, e.g., for analytics or specific libraries */}}
+
+{{/* Example: Plausible Analytics (Privacy-friendly) - Abrar, replace with your details */}}
+{{/*
+{{ if hugo.IsProduction }}
+<script defer data-domain="yourdomain.com" src="https://plausible.io/js/script.js"></script>
+{{ end }}
+*/}}
+
+{{/* Example: Google Analytics - Abrar, replace UA-XXXXXXXXX-Y with your Tracking ID */}}
+{{/*
+{{ if hugo.IsProduction }}
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXXX-Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-XXXXXXXXX-Y');
+</script>
+{{ end }}
+*/}}

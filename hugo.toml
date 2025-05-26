@@ -1,0 +1,111 @@
+baseURL = "https://khan-tahsin-abrar.github.io/"
+languageCode = "en-us"
+title = "Khan Tahsin Abrar - AI & Tech Portfolio"
+defaultContentLanguage = "en"
+enableRobotsTXT = true
+[pagination]
+  pagerSize = 6
+summaryLength = 30 # Increased slightly for better card summaries
+enableGitInfo = true # Useful for Lastmod dates
+
+# Theme will be handled by our custom layouts, not a separate theme folder for now
+# theme = "novacore" # Not strictly needed if layouts are in project root
+
+[params]
+  author = "Khan Tahsin Abrar"
+  description = "Portfolio of Khan Tahsin Abrar, showcasing mastery in AI, Prompt Engineering, UE5, Blender, Python, Web Dev, CyberSec, and Research. This site was co-created with advanced AI."
+  keywords = "Khan Tahsin Abrar, portfolio, AI, LLM, prompt engineering, Hugo, UE5, Blender, Python, Web Development, CyberSecurity, Research, 4th Industrial Revolution, NovaCore"
+  
+  # NovaCore Visuals & Features
+  fontHeading = "Manrope, Noto Sans, sans-serif" # Added Noto Sans as a widely available good fallback
+  fontBody = "Inter, Noto Sans, sans-serif"     # Added Noto Sans
+  
+  darkModePrimaryBg = "#0F172A" 
+  darkModeText = "#E5E7EB" 
+  darkModeAccent = "#3B82F6" 
+  darkModeSecondaryAccent = "#F97316"
+  lightModePrimaryBg = "#F8F9FA" 
+  lightModeText = "#1A1A1D"
+  
+  tagline = "Architecting the Next Wave of Innovation with AI"
+  # sidebarAvatar = "/images/abrar-avatar.png" # Abrar, you'll add your avatar here in static/images/
+  
+  github = "https://github.com/yourusername" # Abrar, replace
+  linkedin = "https://linkedin.com/in/yourusername" # Abrar, replace
+  email = "youremail@example.com" # Abrar, replace
+  # Add other social links if needed
+
+  builtWithAIStatement = "This portfolio was architected by Khan Tahsin Abrar and co-created with advanced AI (Gemini 2.5 Pro), demonstrating mastery in prompt engineering and AI-driven development."
+  copyright = "© {year} Khan Tahsin Abrar. All rights reserved. Theme: NovaCore." 
+
+  # CV Download Link
+  cvPdfLink = "/files/Khan_Tahsin_Abrar_CV.pdf" # Abrar, you'll place your CV here
+
+  # PDF Viewer settings (for later use with shortcode)
+  pdfJsViewerPath = "/pdfjs/web/viewer.html" 
+  hidePdfDownloadInViewer = true 
+
+  # LRW/HRW Mode default
+  defaultResourceMode = "HRW" # Can be 'HRW' or 'LRW'
+
+[markup.goldmark.renderer]
+  unsafe = true # Allows raw HTML in markdown, useful for embeds and custom scripts
+
+[markup.highlight]
+  style = "dracula" 
+  noClasses = false 
+  lineNos = true # Adding line numbers to code blocks
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  section = ["HTML", "RSS"]
+
+[menu]
+  [[menu.main]]
+    identifier = "home"
+    name = "Home"
+    url = "/"
+    weight = 10
+  [[menu.main]]
+    identifier = "projects"
+    name = "Projects"
+    url = "/projects/"
+    weight = 20
+  [[menu.main]]
+    identifier = "certifications"
+    name = "Certifications"
+    url = "/certifications/"
+    weight = 30
+  [[menu.main]]
+    identifier = "research"
+    name = "Research"
+    url = "/research/"
+    weight = 40
+  # Abrar, you can easily add more top-level menu items here for new niches
+  # [[menu.main]]
+  #   identifier = "graphic-design"
+  #   name = "Graphic Design"
+  #   url = "/graphic-design/"
+  #   weight = 45
+  [[menu.main]]
+    identifier = "cv"
+    name = "CV"
+    url = "/cv/"
+    weight = 50
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about/"
+    weight = 60
+
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+  # Abrar, you can define more custom taxonomies here if needed for niches/subtypes
+  # niche = "niches"
+  # tool = "tools"
+
+[privacy]
+  [privacy.youtube]
+    privacyEnhanced = true

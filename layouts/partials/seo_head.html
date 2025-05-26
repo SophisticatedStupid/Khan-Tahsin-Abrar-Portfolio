@@ -1,0 +1,91 @@
+{{ $isHome := .IsHome }}
+{{ $isPage := eq .Kind "page" }}
+{{/* $isSection := eq .Kind "section" */}} {{/* Not used in current logic, can uncomment if needed */}}
+
+{{ $title := .Title }}
+{{ if $isHome }}{{ $title = .Site.Title }}{{ else }}{{ $title = printf "%s | %s" .Title .Site.Title }}{{ end }}
+
+{{ $description := .Description | default (cond $isHome .Site.Params.description (cond .Summary .Summary .Site.Params.description)) | plainify | truncate 160 }}
+{{ $imageRelPath := .Params.image | default .Site.Params.ogImage | default "/images/default-og-image.png" }} {{/* Added a site-wide default OG image path */}}
+{{ $image := $imageRelPath | absURL }}
+{{ $url := .Permalink | absURL }} 
+
+{{/* Favicon and Apple Touch Icons */}}
+{{ $faviconPath := "/images/favicons/" }}
+{{ $author := .Site.Params.author | default .Site.Title }}
+
+<meta name="description" content="{{ $description }}">
+<meta name="author" content="{{ $author }}">
+{{ with .Site.Params.keywords }}<meta name="keywords" content="{{ . }}">{{ end }} {{/* Changed from delimit to direct string as per hugo.toml */}}
+
+{{/* Open Graph meta tags */}}
+<meta property="og:title" content="{{ $title }}">
+<meta property="og:description" content="{{ $description }}">
+<meta property="og:type" content="{{ if $isPage }}article{{ else }}website{{ end }}">
+<meta property="og:url" content="{{ $url }}">
+{{ if $imageRelPath }}<meta property="og:image" content="{{ $image }}">{{ end }}
+<meta property="og:site_name" content="{{ .Site.Title }}">
+{{ if $isPage }}
+<meta property="article:published_time" content="{{ .PublishDate.Format "2006-01-02T15:04:05Z07:00" }}">
+<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
+  {{ with .Params.tags }}
+    {{ range . }}<meta property="article:tag" content="{{ . }}">{{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Twitter Card meta tags */}}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ $title }}">
+<meta name="twitter:description" content="{{ $description }}">
+{{ if $imageRelPath }}<meta name="twitter:image" content="{{ $image }}">{{ end }}
+{{ with .Site.Params.twitterUsername }}<meta name="twitter:site" content="@{{ . }}">{{ end }}
+{{ with $author }}<meta name="twitter:creator" content="{{ . }}">{{ end }} {{/* Assuming author can be a Twitter handle or just name */}}
+
+{{/* JSON-LD Structured Data */}}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    {{ if $isHome }}
+    "@type": "Person",
+    "name": "{{ $author }}",
+    "url": "{{ .Site.BaseURL | absURL }}",
+    {{ with .Site.Params.sidebarAvatar }} "image": "{{ . | absURL }}", {{ end }}
+    "sameAs": [
+        {{ with .Site.Params.github }}"{{ . }}",{{ end }}
+        {{ with .Site.Params.linkedin }}"{{ . }}"{{ end }}
+        {{ with .Site.Params.email }}"mailto:{{ . }}"{{ end }}
+    ],
+    "description": "{{ .Site.Params.description | plainify }}"
+    {{ else if $isPage }}
+    "@type": "Article",
+    "headline": "{{ .Title }}",
+    "author": {
+        "@type": "Person",
+        "name": "{{ $author }}"
+    },
+    "datePublished": "{{ .PublishDate.Format "2006-01-02" }}",
+    "dateModified": "{{ .Lastmod.Format "2006-01-02" }}",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{ $url }}"
+    },
+    "description": "{{ $description }}",
+    {{ if $imageRelPath }}"image": { "@type": "ImageObject", "url": "{{ $image }}" },{{ end }}
+    "publisher": {
+        "@type": "Organization",
+        "name": "{{ .Site.Title }}",
+        {{ with .Site.Params.logo | default .Site.Params.sidebarAvatar }}
+        "logo": {
+            "@type": "ImageObject",
+            "url": "{{ . | absURL }}"
+        }
+        {{ end }}
+    }
+    {{ else }} {{/* For section pages, etc. */}}
+    "@type": "WebSite",
+    "name": "{{ .Site.Title }}",
+    "url": "{{ .Site.BaseURL | absURL }}",
+    "description": "{{ .Site.Params.description | plainify }}"
+    {{ end }}
+}
+</script>

@@ -1,0 +1,170 @@
+// --- NovaCore Theme SCSS ---
+
+// 1. Define Sass variables from the hex fallbacks for use ONLY within Sass functions
+$s-fallback-light-bg: #F8F9FA;
+$s-fallback-light-text: #1A1A1D;
+$s-fallback-dark-bg: #0F172A;
+$s-fallback-dark-text: #E5E7EB;
+$s-fallback-accent: #3B82F6;
+$s-fallback-secondary-accent: #F97316;
+
+// 2. CSS Custom Properties (references defined in layouts/partials/head.html <style>:root)
+$font-heading-stack: var(--font-heading, "Manrope", "Noto Sans", sans-serif);
+$font-body-stack: var(--font-body, "Inter", "Noto Sans", sans-serif);
+
+$color-light-bg: var(--color-light-bg);
+$color-light-text: var(--color-light-text);
+$color-dark-bg: var(--color-dark-bg);
+$color-dark-text: var(--color-dark-text);
+$color-accent: var(--color-accent);
+$color-secondary-accent: var(--color-secondary-accent);
+
+// 3. Base & Reset Styles
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html {
+  scroll-behavior: smooth; font-size: 16px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  background-color: $color-light-bg; color: $color-light-text;
+  &.dark { background-color: $color-dark-bg; color: $color-dark-text; }
+}
+body { font-family: $font-body-stack; overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh; }
+
+// 4. Typography
+h1, h2, h3, h4, h5, h6 { font-family: $font-heading-stack; font-weight: 800; line-height: 1.2; margin-bottom: 0.75em; color: inherit; }
+h1 { font-size: clamp(2rem, 5vw, 3.25rem); } h2 { font-size: clamp(1.75rem, 4vw, 2.75rem); } h3 { font-size: clamp(1.5rem, 3.5vw, 2.25rem); }
+p { margin-bottom: 1.25em; }
+a {
+  color: $color-accent; text-decoration: none;
+  transition: color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  &:hover { text-decoration: underline; opacity: 0.8; }
+}
+
+// 5. Layout Primitives
+.container { width: 90%; max-width: 1280px; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; }
+.site-container { display: flex; flex-direction: column; min-height: 100vh; }
+main.site-content { flex-grow: 1; padding-top: 2rem; padding-bottom: 2rem; }
+
+// 6. Animations (HRW Mode) & Keyframes
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.animate-fade-in-down, .animate-fade-in-up { opacity: 0; }
+html:not(.lrw-mode) {
+  .animate-fade-in-down { animation: fadeInDown 0.6s ease-out forwards; }
+  .animate-fade-in-up { animation: fadeInUp 0.6s ease-out forwards; }
+  .animation-delay-300 { animation-delay: 0.3s; }
+  .animation-delay-600 { animation-delay: 0.6s; }
+}
+
+// 7. LRW (Low Resource Website) Mode Styles
+html.lrw-mode {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important; transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+  body, h1, h2, h3, h4, h5, h6, p, a, span, div, button, input, textarea, select { font-family: Arial, Helvetica, sans-serif !important; }
+  .static-hero-title, .static-hero-tagline, .static-hero-content, .static-hero-buttons,
+  .animate-fade-in-down, .animate-fade-in-up {
+    opacity: 1 !important; transform: translateY(0) !important;
+  }
+  .hrw-only { display: none !important; }
+  .hero .lrw-only { display: block; } 
+  .hero .static-hero-buttons { display: block; } 
+  img.decorative-media, video.decorative-media, iframe.decorative-media { display: none !important; }
+  .large-hero-section {
+    background-image: none !important; background-color: $color-light-bg;
+    html.dark & { background-color: $color-dark-bg; }
+  }
+}
+
+// 8. Corner Toggle Buttons Styling
+#resource-mode-toggle { /* Top Left */
+  position: fixed; top: 1rem; left: 1rem; z-index: 1000; padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem; border: 1px solid; font-size: 0.75rem; font-weight: 600; cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  background-color: rgba($s-fallback-light-text, 0.05); color: $color-light-text; border-color: rgba($s-fallback-light-text, 0.1);
+  html.dark & { background-color: rgba($s-fallback-dark-text, 0.1); color: $color-dark-text; border-color: rgba($s-fallback-dark-text, 0.2); }
+  &:hover {
+    html:not(.dark) & { background-color: rgba($s-fallback-light-text, 0.1); }
+    html.dark & { background-color: rgba($s-fallback-dark-text, 0.2); }
+  }
+  .mode-lrw { display: none; }
+  html.lrw-mode & { .mode-hrw { display: none; } .mode-lrw { display: inline; } }
+}
+
+#theme-toggle { /* Top Right */
+  position: fixed; top: 1rem; right: 1rem; z-index: 1000; padding: 0.5rem;
+  border-radius: 0.375rem; border: 1px solid; cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  background-color: rgba($s-fallback-light-text, 0.05); color: $color-light-text; border-color: rgba($s-fallback-light-text, 0.1);
+  html.dark & { background-color: rgba($s-fallback-dark-text, 0.1); color: $color-dark-text; border-color: rgba($s-fallback-dark-text, 0.2); }
+  &:hover {
+    html:not(.dark) & { background-color: rgba($s-fallback-light-text, 0.1); }
+    html.dark & { background-color: rgba($s-fallback-dark-text, 0.2); }
+  }
+  .icon-sun, .icon-moon { width: 1.25rem; height: 1.25rem; fill: currentColor; }
+}
+
+// 10. Header Styles
+.site-header {
+  .logo-text { font-family: $font-heading-stack; font-size: clamp(1.25rem, 3vw, 1.75rem); font-weight: 800; }
+  .main-nav-wrapper { display: none; @media (min-width: 768px) { display: flex !important; }
+    nav ul li a { font-weight: 500; position: relative; padding-bottom: 0.25rem; &.active { font-weight: 700; }
+      html:not(.lrw-mode) &::after { content: ''; position: absolute; left: 0; bottom: -2px; width: 0; height: 2px; background-color: $color-accent; transition: width 0.3s ease-out; }
+      html:not(.lrw-mode) &:hover::after { width: 100%; }
+    }
+  }
+  .mobile-nav-toggle-wrapper { display: block; @media (min-width: 768px) { display: none !important; } }
+  .mobile-nav-menu-actual { &.hidden { display: none; } @media (min-width: 768px) { display: none !important; } }
+  #mobile-nav-toggle { .hamburger-icon { display: block; } .close-icon { display: none; } &[aria-expanded="true"] { .hamburger-icon { display: none; } .close-icon { display: block; } } }
+}
+
+// 11. Footer Styles
+.site-footer { padding: 2.5rem 0 1.5rem; text-align: center; font-size: 0.875rem; color: lighten($s-fallback-light-text, 40%);
+  html.dark & { color: darken($s-fallback-dark-text, 30%); }
+  .built-with-ai { font-style: italic; margin-bottom: 0.75rem; opacity: 0.9; }
+  .social-links a { margin: 0 0.5rem; svg { vertical-align: middle; width: 1.25rem; height: 1.25rem; } }
+  .copyright { margin-top: 1rem; font-size: 0.8rem; }
+}
+
+// 12. Button Styles
+.btn { display: inline-block; padding: 0.85rem 1.75rem; border-radius: 0.375rem; font-weight: 600; text-align: center; transition: all 0.2s ease-in-out; cursor: pointer; border: 1px solid transparent; font-size: 0.9rem; }
+.btn.btn-primary { background-color: $color-accent; border-color: $color-accent; color: $color-dark-bg; html.dark & { color: $color-dark-text; } &:hover { background-color: darken($s-fallback-accent, 5%); border-color: darken($s-fallback-accent, 5%); transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); } }
+.btn.btn-secondary { background-color: transparent; border-color: $color-accent; color: $color-accent; &:hover { background-color: $color-accent; color: $color-dark-bg; html.dark & { color: $color-dark-text; } transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.05); } }
+
+// 13. Prose Styles
+.prose { line-height: 1.75; h1, h2, h3 { margin-top: 1.5em; margin-bottom: 0.5em; } p { margin-bottom: 1.25em; } a { text-decoration: underline; text-decoration-color: rgba($s-fallback-accent, 0.5); &:hover { text-decoration-color: $color-accent; } } }
+html.dark .prose-invert { color: $color-dark-text; a { color: $color-accent; } }
+
+// 14. Content Card Styles & Skill Badge
+.content-card { 
+  background-color: $color-light-bg; border: 1px solid darken($s-fallback-light-bg, 10%); border-radius: 0.5rem; padding: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: transform 0.25s ease-out, box-shadow 0.25s ease-out; display: flex; flex-direction: column; html.dark & { background-color: lighten($s-fallback-dark-bg, 5%); border-color: lighten($s-fallback-dark-bg, 10%); box-shadow: 0 2px 4px rgba(0,0,0,0.15); } html:not(.lrw-mode) &:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.07); html.dark & { box-shadow: 0 10px 20px rgba(0,0,0,0.2); } } .card-thumbnail { img { width: 100%; height: 200px; object-fit: cover; border-radius: 0.375rem; margin-bottom: 1rem; } } .card-title { font-family: $font-heading-stack; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; a { color: inherit; } } .card-summary { font-size: 0.9rem; margin-bottom: 1rem; flex-grow: 1; color: lighten($s-fallback-light-text, 20%); html.dark & { color: darken($s-fallback-dark-text, 15%); } }
+  
+  .card-tags { // This block was simplified in the previous response, ensure it's clean.
+    margin-top: auto; 
+    padding-top: 0.75rem; 
+    border-top: 1px solid darken($s-fallback-light-bg, 5%);
+    font-size: 0.75rem; 
+    html.dark & {
+      border-top-color: lighten($s-fallback-dark-bg, 10%);
+    }
+    .tag {
+      display: inline-block; background-color: rgba($s-fallback-accent, 0.1); color: $color-accent; 
+      padding: 0.25rem 0.65rem; border-radius: 9999px; font-size: 0.7rem; font-weight: 500;
+      margin-right: 0.35rem; margin-bottom: 0.35rem; transition: background-color 0.2s, color 0.2s;
+      &:hover { background-color: $color-accent;  color: $color-dark-bg;  html.dark & { color: $color-dark-text; } }
+    }
+  }
+}
+.skill-badge { transition: transform 0.2s ease; &:hover { transform: translateY(-2px) scale(1.05); } }
+
+// 15. Grid layout for featured items
+.grid { display: grid; } .gap-8 { gap: 2rem; }
+.md\:grid-cols-2 { @media (min-width: 768px) { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.lg\:grid-cols-3 { @media (min-width: 1024px) { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.col-span-full { grid-column: 1 / -1; } .text-center { text-align: center; }
+
+// 16. Syntax Highlighting
+pre { background-color: #282a36; color: #f8f8f2; padding: 1.25em; overflow: auto; border-radius: 0.375rem; margin-bottom: 1.5em; font-size: 0.85em; line-height: 1.5; code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; background: none; color: inherit; padding: 0; font-size: 1em; } }
+
+// --- End of NovaCore Theme SCSS --
