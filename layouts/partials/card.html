@@ -1,71 +1,22 @@
-<article class="content-card group flex flex-col overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-slate-800/60 shadow-sm hover:shadow-xl dark:hover:shadow-slate-700/50 transition-all duration-300 ease-in-out hrw-only">
-    {{ $isLRW := eq (site.Params.defaultResourceMode | default "HRW" | lower) "lrw" }}
-    {{/* In JS, we'd check documentElement.classList.contains('lrw-mode') */}}
-    {{/* For server-side rendering, we can't directly know the JS toggle state. */}}
-    {{/* So this $isLRW is based on default. CSS will primarily handle hiding. */}}
-
-    {{ with .Params.image }}
-        {{ $imagePath := . }}
-        {{ $imageResource := "" }}
-        {{ if (resources.Get $imagePath) }}
-            {{ $imageResource = resources.Get $imagePath }}
-        {{ else }}
-            {{/* Check if it's an external URL */}}
-            {{ if not (strings.HasPrefix $imagePath "http") }}
-                 {{ $imageResource = resources.Get (printf "images/%s" $imagePath) }} {{/* Try /static/images/ if not found in assets */}}
-            {{ end }}
-        {{ end }}
-
-        <a href="{{ .Permalink }}" class="block overflow-hidden aspect-video {{ if $isLRW }}lrw-hide-image{{ end }}">
-            {{ if $imageResource }}
-                {{ $cardImage := $imageResource.Resize "600x338 webp q75" }} {{/* Adjust size as needed */}}
-                <img src="{{ $cardImage.RelPermalink }}" width="{{ $cardImage.Width }}" height="{{ $cardImage.Height }}" alt="Preview image for {{ .Title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out">
-            {{ else if (strings.HasPrefix $imagePath "http") }}
-                <img src="{{ $imagePath }}" alt="Preview image for {{ .Title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out">
-            {{ else }}
-                <div class="w-full h-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-400 dark:text-slate-500">Image not found</div>
-            {{ end }}
-        </a>
-    {{ end }}
-
-    <div class="p-5 md:p-6 flex flex-col flex-grow">
-        <h3 class="card-title text-lg md:text-xl font-semibold mb-2 leading-tight">
-            <a href="{{ .Permalink }}" class="hover:text-accent dark:hover:text-accent stretched-link">
-                {{ .Title }}
-            </a>
-        </h3>
-        <p class="card-summary text-sm text-slate-600 dark:text-slate-400 mb-4 line-clamp-3">
-            {{ .Summary }}
-        </p>
-        {{ with .Params.tags }}
-        <div class="card-tags mt-auto pt-3 border-t border-slate-100 dark:border-slate-700/50 text-xs">
-            {{ range first 4 . }} {{/* Show a limited number of tags */}}
-            <a href="{{ (site.GetPage (printf "tags/%s" ( . | urlize))).RelPermalink }}" class="tag inline-block bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full px-3 py-1 mr-1 mb-1 hover:bg-accent hover:text-white dark:hover:bg-accent dark:hover:text-slate-900 transition-colors duration-200">
-                #{{ . }}
-            </a>
-            {{ end }}
-        </div>
-        {{ end }}
+<article class="content-card group flex flex-col overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-slate-800/60 shadow-sm hover:shadow-xl dark:hover:shadow-slate-700/50 transition-all duration-300 ease-in-out">
+  {{ with .Params.image }}
+    <div class="card-thumbnail">
+      <img src="{{ . | relURL }}" alt="{{ $.Title }} thumbnail" class="w-full h-48 object-cover rounded-t-lg" loading="lazy" />
     </div>
-</article>
-
-{{/* For LRW mode, a simpler card without image or with placeholder */}}
-<article class="content-card-lrw lrw-only p-5 md:p-6 border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-slate-800/60 rounded-lg shadow-sm flex flex-col flex-1 min-w-[280px] max-w-[350px] m-2">
-    <h3 class="text-lg md:text-xl font-semibold mb-2 leading-tight">
-        <a href="{{ .Permalink }}" class="hover:text-accent dark:hover:text-accent stretched-link">
-            {{ .Title }}
-        </a>
+  {{ end }}
+  <div class="p-5 flex flex-col flex-1">
+    <h3 class="card-title text-xl font-bold mb-2">
+      <a href="{{ .RelPermalink }}" class="hover:text-accent transition-colors">{{ .Title }}</a>
     </h3>
-    <p class="text-sm text-slate-600 dark:text-slate-400 mb-4 line-clamp-3">
-        {{ .Summary }}
-    </p>
-     {{ with .Params.tags }}
-        <div class="mt-auto pt-3 border-t border-slate-100 dark:border-slate-700/50 text-xs">
-            {{ range first 4 . }}
-            <a href="{{ (site.GetPage (printf "tags/%s" ( . | urlize))).RelPermalink }}" class="tag inline-block bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full px-3 py-1 mr-1 mb-1">
-                #{{ . }}
-            </a>
-            {{ end }}
-        </div>
+    {{ with .Params.summary }}
+      <p class="card-summary text-base text-slate-600 dark:text-slate-300 mb-4">{{ . }}</p>
     {{ end }}
+    {{ with .Params.tags }}
+      <div class="card-tags mt-auto pt-3 border-t border-slate-100 dark:border-slate-700 text-xs">
+        {{ range . }}
+          <span class="tag bg-accent/10 text-accent dark:bg-accent/20 dark:text-accent/90 px-3 py-1 rounded-full font-medium mr-2 mb-2">{{ . }}</span>
+        {{ end }}
+      </div>
+    {{ end }}
+  </div>
 </article>

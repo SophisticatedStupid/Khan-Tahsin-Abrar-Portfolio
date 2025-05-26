@@ -150,25 +150,52 @@ html.dark .prose-invert { color: $color-dark-text; a { color: $color-accent; } }
 
 // 14. Content Card Styles & Skill Badge
 .content-card {
-background-color: $color-light-bg; border: 1px solid darken($s-fallback-light-bg, 10%); border-radius: 0.5rem; padding: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: transform 0.25s ease-out, box-shadow 0.25s ease-out; display: flex; flex-direction: column; html.dark & { background-color: lighten($s-fallback-dark-bg, 5%); border-color: lighten($s-fallback-dark-bg, 10%); box-shadow: 0 2px 4px rgba(0,0,0,0.15); } html:not(.lrw-mode) &:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.07); html.dark & { box-shadow: 0 10px 20px rgba(0,0,0,0.2); } } .card-thumbnail { img { width: 100%; height: 200px; object-fit: cover; border-radius: 0.375rem; margin-bottom: 1rem; } } .card-title { font-family: $font-heading-stack; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; a { color: inherit; } } .card-summary { font-size: 0.9rem; margin-bottom: 1rem; flex-grow: 1; color: lighten($s-fallback-light-text, 20%); html.dark & { color: darken($s-fallback-dark-text, 15%); } }
-
-.card-tags { // This block was simplified in the previous response, ensure it's clean.
-margin-top: auto;
-padding-top: 0.75rem;
-border-top: 1px solid darken($s-fallback-light-bg, 5%);
-font-size: 0.75rem;
-html.dark & {
-border-top-color: lighten($s-fallback-dark-bg, 10%);
+  background-color: $color-light-bg;
+  border: 1px solid darken($s-fallback-light-bg, 10%);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
+  display: flex;
+  flex-direction: column;
+  html.dark & {
+    background-color: lighten($s-fallback-dark-bg, 5%);
+    border-color: lighten($s-fallback-dark-bg, 10%);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  }
+  html:not(.lrw-mode) &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.07);
+    html.dark & {
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+  }
+  .card-thumbnail {
+    img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 0.375rem;
+      margin-bottom: 1rem;
+    }
+  }
+  .card-title {
+    font-family: $font-heading-stack;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    a { color: inherit; }
+  }
+  .card-summary {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+    color: lighten($s-fallback-light-text, 20%);
+    html.dark & {
+      color: darken($s-fallback-dark-text, 15%);
+    }
+  }
 }
-.tag {
-display: inline-block; background-color: rgba($s-fallback-accent, 0.1); color: $color-accent;
-padding: 0.25rem 0.65rem; border-radius: 9999px; font-size: 0.7rem; font-weight: 500;
-margin-right: 0.35rem; margin-bottom: 0.35rem; transition: background-color 0.2s, color 0.2s;
-&:hover { background-color: $color-accent;  color: $color-dark-bg;  html.dark & { color: $color-dark-text; } }
-}
-}
-}
-.skill-badge { transition: transform 0.2s ease; &:hover { transform: translateY(-2px) scale(1.05); } }
 
 // 15. Grid layout for featured items
 .grid { display: grid; } .gap-8 { gap: 2rem; }
@@ -212,18 +239,18 @@ pre { background-color: \#282a36; color: \#f8f8f2; padding: 1.25em; overflow: au
 }
 
 .main-nav-demo {
-  width: 75vw;
-  max-width: 75vw;
+  width: 70vw;
+  max-width: 70vw;
   overflow-x: visible;
   flex-wrap: nowrap !important;
   justify-content: center;
   align-items: flex-end;
-  gap: 4rem;
+  gap: 2.2rem;
   margin-bottom: 2.5rem;
   background: none;
   border-radius: 0;
   box-shadow: none;
-  padding: 0;
+  padding: 1.1rem 2.2rem 1.1rem 2.2rem;
   position: relative;
   left: 50%;
   transform: translateX(-50%);
@@ -239,8 +266,10 @@ pre { background-color: \#282a36; color: \#f8f8f2; padding: 1.25em; overflow: au
 }
 
 .nav-logo-box {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  min-width: 1.8rem;
+  min-height: 1.8rem;
   background: #fff;
   border: 2px solid #222;
   border-radius: 0.25rem;
@@ -252,8 +281,8 @@ pre { background-color: \#282a36; color: \#f8f8f2; padding: 1.25em; overflow: au
 }
 
 .nav-logo-svg {
-  width: 1.7rem;
-  height: 1.7rem;
+  width: 1.1rem;
+  height: 1.1rem;
   display: block;
 }
 
@@ -378,4 +407,12 @@ html.lrw-mode .nav-logo-svg {
   filter: none !important;
 }
 
-// --- End of NovaCore Theme SCSS --
+// LRW/Low Resource mode: Only remove animation, not icons
+html.lrw-mode * {
+  animation: none !important;
+  transition: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+// --- End of NovaCore Theme SCSS ---
