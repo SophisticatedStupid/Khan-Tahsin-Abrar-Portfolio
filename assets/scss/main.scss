@@ -212,8 +212,8 @@ pre { background-color: \#282a36; color: \#f8f8f2; padding: 1.25em; overflow: au
 }
 
 .main-nav-demo {
-  width: 100vw;
-  max-width: 100vw;
+  width: 75vw;
+  max-width: 75vw;
   overflow-x: visible;
   flex-wrap: nowrap !important;
   justify-content: center;
@@ -227,6 +227,7 @@ pre { background-color: \#282a36; color: \#f8f8f2; padding: 1.25em; overflow: au
   position: relative;
   left: 50%;
   transform: translateX(-50%);
+  font-size: 0.85rem;
 }
 
 .nav-demo-item {
@@ -320,6 +321,46 @@ html:not(.lrw-mode) .nav-demo-item .nav-link-demo:hover {
 }
 html:not(.lrw-mode) .nav-logo-svg {
   filter: drop-shadow(0 2px 8px #3B82F655);
+}
+
+// Dark mode adjustments for HRW
+html.dark:not(.lrw-mode) body {
+  background: linear-gradient(120deg, #181f2a 0%, #232b39 100%) !important;
+}
+html.dark:not(.lrw-mode) .main-site-title a {
+  color: #60a5fa !important;
+  text-shadow: 0 2px 16px #1e293b99, 0 1px 0 #232b39;
+}
+html.dark:not(.lrw-mode) .main-nav-demo {
+  background: linear-gradient(90deg, #232b39 0%, #181f2a 100%) !important;
+  border-radius: 2.5rem;
+  box-shadow: 0 8px 32px #1e293b44, 0 1.5px 0 #232b39;
+  border: 1.5px solid #60a5fa;
+}
+html.dark:not(.lrw-mode) .nav-logo-box {
+  background: #232b39 !important;
+  border-color: #60a5fa !important;
+  box-shadow: 0 4px 16px #1e293b33, 0 1.5px 0 #232b39;
+}
+html.dark:not(.lrw-mode) .nav-demo-item .nav-link-demo {
+  color: #e5e7eb !important;
+  text-shadow: 0 1px 0 #232b39;
+}
+html.dark:not(.lrw-mode) .nav-demo-item .nav-link-demo:hover {
+  color: #60a5fa !important;
+  text-shadow: 0 2px 8px #60a5fa55;
+}
+html.dark:not(.lrw-mode) .nav-logo-svg {
+  filter: drop-shadow(0 2px 8px #60a5fa55);
+  stroke: #60a5fa !important;
+}
+html.dark:not(.lrw-mode) .theme-toggle-btn-corner {
+  background: #232b39 !important;
+  border-color: #60a5fa !important;
+  box-shadow: 0 8px 32px #1e293b55;
+}
+html.dark:not(.lrw-mode) .theme-toggle-btn-corner svg {
+  stroke: #60a5fa !important;
 }
 
 // LRW/Low Resource mode: Remove all heavy UI/UX

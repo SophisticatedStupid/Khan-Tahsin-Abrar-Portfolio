@@ -2,7 +2,7 @@
 {{ $currentPage := . }}
 
 <header class="site-header-container py-3 md:py-4 bg-white/80 dark:bg-dark-bg/80">
-  <nav class="main-nav-demo desktop-only flex flex-row justify-center items-end gap-16 mb-8 mt-2" style="width:100vw;overflow-x:visible;left:50%;transform:translateX(-50%);">
+  <nav class="main-nav-demo desktop-only flex flex-row justify-center items-end gap-16 mb-8 mt-2" style="width:75vw;overflow-x:visible;left:50%;transform:translateX(-50%);">
     {{ range .Site.Menus.main }}
       <div class="nav-demo-item flex flex-col items-center">
         <span class="nav-logo-box">
@@ -28,9 +28,7 @@
   </nav>
   <div class="site-branding-main text-center pt-6 pb-4 md:pt-8 md:pb-6">
     <h1 class="main-site-title">
-      <a href="{{ .Site.BaseURL | absURL }}" class="text-5xl font-extrabold text-light-text dark:text-dark-text hover:opacity-80 transition-opacity">
-        {{ .Site.Params.author | default .Site.Title }}
-      </a>
+      {{ .Site.Params.author | default .Site.Title }}
     </h1>
   </div>
 </header>
