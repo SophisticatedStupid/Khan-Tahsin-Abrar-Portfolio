@@ -1,71 +1,36 @@
+{{/* layouts/partials/header.html */}}
 {{ $currentPage := . }}
-<header class="site-header sticky top-0 z-40 w-full backdrop-blur-md flex-none transition-colors duration-300 bg-white/80 dark:bg-dark-bg/80 border-b border-slate-200 dark:border-slate-800">
-    <div class="container mx-auto flex items-center justify-between h-16 md:h-20">
-        {{/* Site Title / Logo */}}
-        <div class="site-branding flex-shrink-0">
-            <a href="{{ .Site.BaseURL | absURL }}" class="logo-text text-xl sm:text-2xl font-extrabold text-light-text dark:text-dark-text hover:opacity-75 transition-opacity">
-                {{ .Site.Params.author | default .Site.Title }}
-            </a>
-        </div>
 
-        {{/* Desktop Navigation (Theme toggle removed from here) */}}
-        <div class="main-nav-wrapper hidden md:flex items-center space-x-5 lg:space-x-6">
-            <nav aria-label="Main navigation">
-                <ul class="flex items-center space-x-5 lg:space-x-6">
-                    {{ range .Site.Menus.main }}
-                    <li>
-                        <a href="{{ .URL | absURL }}" class="text-sm font-medium pb-1 border-b-2
-                            {{ if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) (eq $currentPage.RelPermalink .URL) }}
-                                border-accent text-accent dark:text-accent
-                            {{ else }}
-                                border-transparent text-slate-700 dark:text-slate-300 hover:border-accent/70 hover:text-accent/90 dark:hover:text-accent/90
-                            {{ end }}
-                            transition-colors duration-200 ease-in-out">
-                            {{ .Name }}
-                        </a>
-                    </li>
-                    {{ end }}
-                </ul>
-            </nav>
-            {{/* Old desktop theme toggle was here - now removed */}}
-        </div>
-
-        {{/* Mobile Navigation Toggle Button */}}
-        <div class="mobile-nav-toggle-wrapper md:hidden">
-            <button id="mobile-nav-toggle" aria-label="Open main menu" aria-expanded="false" aria-controls="mobile-nav-menu" class="p-2 rounded-md text-slate-600 dark:text-slate-400 hover:text-accent dark:hover:text-accent focus:outline-none">
-                <svg class="hamburger-icon h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-                <svg class="close-icon h-6 w-6 hidden" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-        </div>
-    </div>
-
-    {{/* Mobile Navigation Menu (Theme toggle removed from here) */}}
-    <div id="mobile-nav-menu" class="mobile-nav-menu-actual hidden md:hidden border-t border-slate-200 dark:border-slate-800 absolute w-full bg-white/95 dark:bg-dark-bg/95 backdrop-blur-md shadow-lg">
-        <nav class="flex flex-col space-y-1 px-3 py-4" aria-label="Mobile navigation">
-            {{ range .Site.Menus.main }}
-            <a href="{{ .URL | absURL }}" class="block px-3 py-2 rounded-md text-base font-medium 
-                {{ if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) (eq $currentPage.RelPermalink .URL) }}
-                    bg-accent/10 text-accent dark:bg-accent/20 dark:text-accent
-                {{ else }}
-                    text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-accent dark:hover:text-accent
-                {{ end }}">
-                {{ .Name }}
-            </a>
-            {{ end }}
-            {{/* Old mobile theme toggle was here - now removed */}}
-        </nav>
-    </div>
+<header class="site-header-container py-3 md:py-4 bg-white/80 dark:bg-dark-bg/80">
+  <nav class="main-nav-demo desktop-only flex flex-row justify-center items-end gap-16 mb-8 mt-2" style="width:100vw;overflow-x:visible;">
+    {{ range .Site.Menus.main }}
+      <div class="nav-demo-item flex flex-col items-center">
+        <span class="nav-logo-box">
+          {{ if eq .Name "Home" }}
+            <svg class="nav-logo-svg" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M12 2L2 10h20L12 2z"/></svg>
+          {{ else if eq .Name "Projects" }}
+            <svg class="nav-logo-svg" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="8" y="8" width="8" height="8" rx="1"/></svg>
+          {{ else if eq .Name "Certifications" }}
+            <svg class="nav-logo-svg" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M12 15v2"/></svg>
+          {{ else if eq .Name "Research" }}
+            <svg class="nav-logo-svg" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M15 15l4 4"/></svg>
+          {{ else if eq .Name "CV" }}
+            <svg class="nav-logo-svg" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 8h8M8 12h8M8 16h4"/></svg>
+          {{ else if eq .Name "About" }}
+            <svg class="nav-logo-svg" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="12" cy="10" r="2"/><path d="M12 14v2"/></svg>
+          {{ else }}
+            <svg class="nav-logo-svg" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>
+          {{ end }}
+        </span>
+        <a href="{{ .URL | absURL }}" class="nav-link-demo text-lg font-medium mt-1">{{ .Name }}</a>
+      </div>
+    {{ end }}
+  </nav>
+  <div class="site-branding-main text-center pt-6 pb-4 md:pt-8 md:pb-6">
+    <h1 class="main-site-title">
+      <a href="{{ .Site.BaseURL | absURL }}" class="text-5xl font-extrabold text-light-text dark:text-dark-text hover:opacity-80 transition-opacity">
+        {{ .Site.Params.author | default .Site.Title }}
+      </a>
+    </h1>
+  </div>
 </header>
-
-<nav class="flex flex-row gap-4 justify-center items-center">
-    <a href="/" class="nav-link">Home</a>
-    <a href="/projects" class="nav-link">Projects</a>
-    <a href="/certifications" class="nav-link">Certifications</a>
-    <a href="/research" class="nav-link">Research</a>
-    <a href="/cv" class="nav-link">CV</a>
-    <a href="/about" class="nav-link">About</a>
-</nav>
