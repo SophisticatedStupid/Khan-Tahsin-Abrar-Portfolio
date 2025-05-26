@@ -2,24 +2,24 @@
 {{ $currentPage := . }}
 
 <header class="site-header-container py-3 md:py-4 bg-white/80 dark:bg-dark-bg/80">
-  <nav class="main-nav-demo desktop-only flex flex-row justify-center items-end gap-16 mb-8 mt-2" style="width:100vw;overflow-x:visible;">
+  <nav class="main-nav-demo desktop-only flex flex-row justify-center items-end gap-16 mb-8 mt-2" style="width:100vw;overflow-x:visible;left:50%;transform:translateX(-50%);">
     {{ range .Site.Menus.main }}
       <div class="nav-demo-item flex flex-col items-center">
         <span class="nav-logo-box">
           {{ if eq .Name "Home" }}
-            <svg class="nav-logo-svg" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M12 2L2 10h20L12 2z"/></svg>
+            <svg class="nav-logo-svg" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12L12 3l9 9"/><path d="M9 21V9h6v12"/></svg>
           {{ else if eq .Name "Projects" }}
-            <svg class="nav-logo-svg" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="8" y="8" width="8" height="8" rx="1"/></svg>
+            <svg class="nav-logo-svg" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><rect x="7" y="7" width="10" height="10" rx="1"/></svg>
           {{ else if eq .Name "Certifications" }}
-            <svg class="nav-logo-svg" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M12 15v2"/></svg>
+            <svg class="nav-logo-svg" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M12 15v2"/></svg>
           {{ else if eq .Name "Research" }}
-            <svg class="nav-logo-svg" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M15 15l4 4"/></svg>
+            <svg class="nav-logo-svg" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M15 15l4 4"/></svg>
           {{ else if eq .Name "CV" }}
-            <svg class="nav-logo-svg" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 8h8M8 12h8M8 16h4"/></svg>
+            <svg class="nav-logo-svg" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 7h10M7 12h10M7 17h6"/></svg>
           {{ else if eq .Name "About" }}
-            <svg class="nav-logo-svg" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="12" cy="10" r="2"/><path d="M12 14v2"/></svg>
+            <svg class="nav-logo-svg" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="10" r="2"/><path d="M12 14v2"/></svg>
           {{ else }}
-            <svg class="nav-logo-svg" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>
+            <svg class="nav-logo-svg" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
           {{ end }}
         </span>
         <a href="{{ .URL | absURL }}" class="nav-link-demo text-lg font-medium mt-1">{{ .Name }}</a>

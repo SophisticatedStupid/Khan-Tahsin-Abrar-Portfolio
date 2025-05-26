@@ -207,6 +207,36 @@ pre { background-color: \#282a36; color: \#f8f8f2; padding: 1.25em; overflow: au
 }
 
 // 9. Demo Nav Logo Box Styling
+.desktop-only {
+  display: flex !important;
+}
+
+.main-nav-demo {
+  width: 100vw;
+  max-width: 100vw;
+  overflow-x: visible;
+  flex-wrap: nowrap !important;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 4rem;
+  margin-bottom: 2.5rem;
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav-demo-item {
+  min-width: 7rem;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
 .nav-logo-box {
   width: 2.5rem;
   height: 2.5rem;
@@ -217,6 +247,7 @@ pre { background-color: \#282a36; color: \#f8f8f2; padding: 1.25em; overflow: au
   align-items: center;
   justify-content: center;
   margin-bottom: 0.25rem;
+  box-sizing: border-box;
 }
 
 .nav-logo-svg {
@@ -225,40 +256,31 @@ pre { background-color: \#282a36; color: \#f8f8f2; padding: 1.25em; overflow: au
   display: block;
 }
 
-.main-nav-demo {
-  margin-bottom: 2.5rem;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-}
-
-.nav-demo-item .nav-link-demo {
-  margin-top: 0.5rem;
-  color: #111;
-  font-size: 1.15rem;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.nav-demo-item .nav-link-demo:hover {
-  color: #3B82F6;
-}
-
-// Theme toggler (top right)
+// Theme toggler (top right) with SVG icon
 .theme-toggle-btn-corner {
   position: fixed;
-  top: 1rem;
-  right: 1rem;
+  top: 1.5rem;
+  right: 1.5rem;
   z-index: 1100;
   background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 0.5rem;
-  padding: 0.5rem 0.7rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  transition: background 0.2s, border 0.2s;
+  border: 1.5px solid #3B82F6;
+  border-radius: 0.7rem;
+  padding: 0.7rem 0.9rem;
+  box-shadow: 0 4px 24px #b6d0ff44, 0 1.5px 0 #fff;
+  transition: background 0.2s, border 0.2s, box-shadow 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.theme-toggle-btn-corner svg {
+  width: 2rem;
+  height: 2rem;
+  display: block;
 }
 .theme-toggle-btn-corner:hover {
   background: #f3f3f3;
-  border-color: #bbb;
+  border-color: #2563eb;
+  box-shadow: 0 8px 32px #3B82F655;
 }
 
 // HRW/Heavy UI/UX mode
@@ -267,38 +289,52 @@ html:not(.lrw-mode) body {
 }
 html:not(.lrw-mode) .main-site-title a {
   color: #3B82F6;
-  text-shadow: 0 2px 16px #b6d0ff66, 0 1px 0 #fff;
+  text-shadow: 0 2px 16px #b6d0ff66, 0 1px 0 #fff, 0 8px 32px #3B82F655;
+  font-size: 3.5rem;
+  letter-spacing: 0.04em;
+  font-family: 'Manrope', 'Noto Sans', sans-serif;
 }
 html:not(.lrw-mode) .main-nav-demo {
-  background: rgba(255,255,255,0.7);
-  border-radius: 1.5rem;
-  box-shadow: 0 4px 32px #b6d0ff22;
-  padding: 1.2rem 2rem 0.7rem 2rem;
+  background: linear-gradient(90deg, #e0e7ef 0%, #f8fafc 100%);
+  border-radius: 2.5rem;
+  box-shadow: 0 8px 32px #b6d0ff44, 0 1.5px 0 #fff;
+  padding: 1.5rem 3rem 1.1rem 3rem;
+  border: 1.5px solid #3B82F6;
 }
 html:not(.lrw-mode) .nav-logo-box {
   background: #f3f7ff;
   border-color: #3B82F6;
-  box-shadow: 0 2px 8px #b6d0ff33;
+  box-shadow: 0 4px 16px #b6d0ff33, 0 1.5px 0 #fff;
 }
 html:not(.lrw-mode) .nav-demo-item .nav-link-demo {
   color: #1A1A1D;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.01em;
+  font-size: 1.18rem;
+  font-family: 'Manrope', 'Noto Sans', sans-serif;
+  text-shadow: 0 1px 0 #fff;
 }
 html:not(.lrw-mode) .nav-demo-item .nav-link-demo:hover {
   color: #2563eb;
+  text-shadow: 0 2px 8px #3B82F655;
+}
+html:not(.lrw-mode) .nav-logo-svg {
+  filter: drop-shadow(0 2px 8px #3B82F655);
 }
 
 // LRW/Low Resource mode: Remove all heavy UI/UX
 html.lrw-mode .main-nav-demo,
 html.lrw-mode .nav-logo-box,
-html.lrw-mode .main-site-title a {
+html.lrw-mode .main-site-title a,
+html.lrw-mode .nav-demo-item .nav-link-demo,
+html.lrw-mode .nav-logo-svg {
   background: none !important;
   border: none !important;
   box-shadow: none !important;
   color: inherit !important;
   text-shadow: none !important;
   font-weight: 400 !important;
+  filter: none !important;
 }
 
 // --- End of NovaCore Theme SCSS --
