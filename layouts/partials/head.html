@@ -1,0 +1,67 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>{{ if.IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+
+{{ $faviconPath := "/images/favicons/" }} {{/* Abrar, place your favicons in static/images/favicons/ */}}
+<link rel="apple-touch-icon" sizes="180x180" href="{{ add $faviconPath "apple-touch-icon.png" | absURL }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ add $faviconPath "favicon-32x32.png" | absURL }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ add $faviconPath "favicon-16x16.png" | absURL }}">
+<link rel="manifest" href="{{ add $faviconPath "site.webmanifest" | absURL }}">
+<link rel="mask-icon" href="{{ add $faviconPath "safari-pinned-tab.svg" | absURL }}" color="{{ .Site.Params.darkModeAccent | default "#3B82F6" }}">
+<meta name="msapplication-TileColor" content="{{ .Site.Params.darkModePrimaryBg | default "#0F172A" }}">
+<meta name="theme-color" content="{{ .Site.Params.lightModePrimaryBg | default "#F8F9FA" }}" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="{{ .Site.Params.darkModePrimaryBg | default "#0F172A" }}" media="(prefers-color-scheme: dark)">
+
+{{ $fontHeading := .Site.Params.fontHeading | default "Manrope, Noto Sans, sans-serif" }}
+{{ $fontBody := .Site.Params.fontBody | default "Inter, Noto Sans, sans-serif" }}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family={{ replace $fontHeading " " "+" | replace ", " "&family=" | replace ", Noto Sans, sans-serif" "" }}:wght@700;800&family={{ replace $fontBody " " "+" | replace ", " "&family=" | replace ", Noto Sans, sans-serif" "" }}:wght@400;500;700&display=swap" rel="stylesheet">
+
+{{ $styleOptions := (dict "targetPath" "css/novacore.css" "outputStyle" "compressed") }}
+{{ $style := resources.Get "scss/main.scss" | toCSS $styleOptions | fingerprint }}
+<link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}">
+
+<style>:root {
+    --font-heading: '{{ $fontHeading }}';
+    --font-body: '{{ $fontBody }}';
+    --color-light-bg: {{ .Site.Params.lightModePrimaryBg | default "#F8F9FA" }};
+    --color-light-text: {{ .Site.Params.lightModeText | default "#1A1A1D" }};
+    --color-dark-bg: {{ .Site.Params.darkModePrimaryBg | default "#0F172A" }};
+    --color-dark-text: {{ .Site.Params.darkModeText | default "#E5E7EB" }};
+    --color-accent: {{ .Site.Params.darkModeAccent | default "#3B82F6" }};
+    --color-secondary-accent: {{ .Site.Params.darkModeSecondaryAccent | default "#F97316" }};
+    
+    /* For RGBA usage in SCSS if needed directly, define RGB components */
+    /* Example: --color-light-text-val-rgb: 26, 26, 29; */
+}
+</style>
+
+{{/* Dark mode preference - script will be in scripts.html */}}
+<script>
+    (function() {
+        const preference = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (preference === 'dark' || (!preference && prefersDark)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    })();
+</script>
+
+{{ if hugo.IsServer }}
+    <script data-no-instant> // For Turbo, if used later
+        // Development auto-refresh for CSS changes (can be too aggressive)
+        // Consider Hugo's built-in LiveReload which is usually sufficient
+        // setInterval(() => {
+        //     fetch(document.location.href).then(r => r.text()).then(html => {
+        //         if (document.body.innerHTML !== новым DOMParser().parseFromString(html, 'text/html').body.innerHTML) {
+        //             document.location.reload();
+        //         }
+        //     });
+        // }, 2000);
+    </script>
+{{ end }}

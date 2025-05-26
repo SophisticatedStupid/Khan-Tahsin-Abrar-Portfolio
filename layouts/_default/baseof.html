@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{{/* The class for LRW/HRW will be set by JavaScript on page load */}}
+<html lang="{{ .Site.LanguageCode | default "en-us" }}" class="{{ site.Params.defaultResourceMode | default "HRW" | lower }}-mode">
+<head>
+    {{ partial "head.html" . }}
+    {{ partial "seo_head.html" . }}
+</head>
+<body id="page-top" class="antialiased">
+    {{/* LRW/HRW Mode Toggle Button - Placed early for stacking context */}}
+    <button id="resource-mode-toggle" aria-label="Toggle Resource Mode" title="Toggle Low/High Resource Mode">
+        <span class="mode-hrw">HRW</span>
+        <span class="mode-lrw">LRW</span>
+    </button>
+
+    <div class="site-container container">
+        {{ partial "header.html" . }}
+        <main class="site-content">
+            {{ block "main" . }}{{ end }}
+        </main>
+        {{ partial "footer.html" . }}
+    </div>
+    {{ partial "scripts.html" . }}
+</body>
+</html>
+

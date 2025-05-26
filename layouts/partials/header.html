@@ -1,0 +1,73 @@
+{{ $currentPage := . }}
+<header class="site-header sticky top-0 z-50 w-full backdrop-blur-md flex-none transition-colors duration-300 bg-white/80 dark:bg-dark-bg/80 border-b border-slate-200 dark:border-slate-800">
+    <div class="container mx-auto flex items-center justify-between h-16 md:h-20">
+        {{/* Site Title / Logo */}}
+        <div class="site-branding flex-shrink-0">
+            <a href="{{ .Site.BaseURL | absURL }}" class="logo-text text-xl sm:text-2xl font-extrabold text-light-text dark:text-dark-text hover:opacity-75 transition-opacity">
+                {{ .Site.Params.author | default .Site.Title }}
+            </a>
+        </div>
+
+        {{/* Desktop Navigation & Theme Toggle */}}
+        <div class="hidden md:flex items-center space-x-5 lg:space-x-6">
+            <nav aria-label="Main navigation">
+                <ul class="flex items-center space-x-5 lg:space-x-6">
+                    {{ range .Site.Menus.main }}
+                    <li>
+                        <a href="{{ .URL | absURL }}" class="text-sm font-medium pb-1 border-b-2
+                            {{ if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) (eq $currentPage.RelPermalink .URL) }}
+                                border-accent text-accent dark:text-accent
+                            {{ else }}
+                                border-transparent text-slate-700 dark:text-slate-300 hover:border-accent/70 hover:text-accent/90 dark:hover:text-accent/90
+                            {{ end }}
+                            transition-colors duration-200 ease-in-out">
+                            {{ .Name }}
+                        </a>
+                    </li>
+                    {{ end }}
+                </ul>
+            </nav>
+            
+            {{/* Dark/Light Mode Toggle - Desktop */}}
+            <button id="theme-toggle-desktop" aria-label="Toggle Dark/Light Mode" title="Toggle Dark/Light Mode" class="theme-toggle-btn p-2 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                <svg class="icon-sun h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 14.464A1 1 0 106.465 13.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm.001-9.928a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM3 11a1 1 0 100-2H2a1 1 0 100 2h1z"></path></svg>
+                <svg class="icon-moon h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            </button>
+        </div>
+
+        {{/* Mobile Navigation Toggle Button */}}
+        <div class="md:hidden">
+            <button id="mobile-nav-toggle" aria-label="Open main menu" aria-expanded="false" aria-controls="mobile-nav-menu" class="p-2 rounded-md text-slate-600 dark:text-slate-400 hover:text-accent dark:hover:text-accent focus:outline-none">
+                <svg class="hamburger-icon h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <svg class="close-icon h-6 w-6 hidden" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    {{/* Mobile Navigation Menu (Hidden by default, controlled by JS) */}}
+    <div id="mobile-nav-menu" class="hidden md:hidden border-t border-slate-200 dark:border-slate-800 absolute w-full bg-white/95 dark:bg-dark-bg/95 backdrop-blur-md shadow-lg">
+        <nav class="flex flex-col space-y-1 px-3 py-4" aria-label="Mobile navigation">
+            {{ range .Site.Menus.main }}
+            <a href="{{ .URL | absURL }}" class="block px-3 py-2 rounded-md text-base font-medium 
+                {{ if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) (eq $currentPage.RelPermalink .URL) }}
+                    bg-accent/10 text-accent dark:bg-accent/20 dark:text-accent
+                {{ else }}
+                    text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-accent dark:hover:text-accent
+                {{ end }}">
+                {{ .Name }}
+            </a>
+            {{ end }}
+            <div class="pt-2 mt-2 border-t border-slate-200 dark:border-slate-700">
+                <button id="theme-toggle-mobile" aria-label="Toggle Dark/Light Mode" title="Toggle Dark/Light Mode" class="theme-toggle-btn w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-accent dark:hover:text-accent flex items-center space-x-3">
+                    <svg class="icon-sun h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 14.464A1 1 0 106.465 13.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm.001-9.928a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM3 11a1 1 0 100-2H2a1 1 0 100 2h1z"></path></svg>
+                    <svg class="icon-moon h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <span>Toggle Theme</span>
+                </button>
+            </div>
+        </nav>
+    </div>
+</header>
