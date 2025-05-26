@@ -1,0 +1,82 @@
+{{ define "main" }}
+<div class="homepage-content space-y-16 md:space-y-24 py-8 md:py-12">
+
+    {{/* Hero Section */}}
+    <section id="hero" class="hero text-center min-h-[60vh] md:min-h-[70vh] flex flex-col justify-center items-center px-4">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 animate-fade-in-down">
+            {{ .Site.Params.author | default .Site.Title }}
+        </h1>
+        <p class="text-lg sm:text-xl md:text-2xl text-slate-700 dark:text-slate-300 mb-10 max-w-3xl mx-auto animate-fade-in-up">
+            {{ .Site.Params.tagline | default "Welcome to my portfolio." | markdownify }}
+        </p>
+        {{ with .Content }}
+        <div class="prose dark:prose-invert max-w-2xl mx-auto mb-10 text-base md:text-lg text-center animate-fade-in-up">
+            {{ . }}
+        </div>
+        {{ end }}
+    </section>
+
+    {{/* About Me Section */}}
+    <section id="about-snippet" class="container mx-auto px-4 py-12 bg-slate-50 dark:bg-slate-800/30 rounded-lg text-center">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">About Me</h2>
+            <div class="prose dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 text-lg">
+                <p>
+                    Driven by a passion for innovation and leveraging cutting-edge technology, especially AI. My journey is about continuous learning and applying skills to create impactful solutions.
+                </p>
+            </div>
+            {{ with .Site.GetPage "/about" }}
+            <a href="{{ .Permalink }}" class="btn btn-primary mt-8">Read More About Me</a>
+            {{ end }}
+        </div>
+    </section>
+
+    {{/* Skills Overview Section */}}
+    <section id="skills-overview" class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Core Skills</h2>
+        <div class="flex flex-wrap justify-center gap-4">
+            {{ $skills := slice "AI/ML & Prompt Engineering" "Python" "Hugo & Web Dev" "Unreal Engine 5" "Blender" "CyberSecurity Concepts" "Research & Analysis" }}
+            {{ range $skills }}
+            <span class="skill-badge bg-accent/10 dark:bg-accent/20 text-accent dark:text-accent/90 py-2 px-4 rounded-full text-sm md:text-base font-medium">
+                {{ . }}
+            </span>
+            {{ end }}
+        </div>
+    </section>
+
+    {{/* Featured Work Section */}}
+    {{ $featuredProjects := first 3 (where .Site.RegularPages.ByDate.Reverse "section" "projects") }}
+    {{ if $featuredProjects }}
+    <section id="featured-work" class="container mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Featured Work</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {{ range $featuredProjects }}
+                {{ partial "card.html" . }}
+            {{ end }}
+        </div>
+        {{ with .Site.GetPage "/projects" }}
+        <div class="text-center mt-12">
+            <a href="{{ .Permalink }}" class="btn btn-primary">View All Projects</a>
+        </div>
+        {{ end }}
+    </section>
+    {{ else }}
+    <section id="featured-work-empty" class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Featured Work</h2>
+        <p class="col-span-full text-slate-500 dark:text-slate-400">No featured projects yet. Add some projects to the 'content/projects/' folder!</p>
+    </section>
+    {{ end }}
+
+    {{/* Contact Section */}}
+    <section id="contact-snippet" class="container mx-auto px-4 text-center py-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">Let's Connect</h2>
+        <p class="text-xl text-slate-700 dark:text-slate-300 mb-8 max-w-2xl mx-auto">
+            Interested in collaborating or have a question? I'm always open to discussing new projects and opportunities.
+        </p>
+        {{ with .Site.Params.email }}
+        <a href="mailto:{{ . }}" class="btn btn-primary text-lg px-8 py-3">Get in Touch</a>
+        {{ end }}
+    </section>
+
+</div>
+{{ end }}
