@@ -9,14 +9,12 @@
         <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 lrw-only static-hero-title">
             {{ .Site.Params.author | default .Site.Title }}
         </h1>
-
         <p class="text-lg sm:text-xl md:text-2xl text-slate-700 dark:text-slate-300 mb-10 max-w-3xl mx-auto animate-fade-in-up animation-delay-300 hrw-only">
             {{ .Site.Params.tagline | default "Welcome to my portfolio." | markdownify }}
         </p>
         <p class="text-lg sm:text-xl md:text-2xl text-slate-700 dark:text-slate-300 mb-10 max-w-3xl mx-auto lrw-only static-hero-tagline">
             {{ .Site.Params.tagline | default "Welcome to my portfolio." | markdownify }}
         </p>
-
         {{ with .Content }}
         <div class="prose dark:prose-invert max-w-2xl mx-auto mb-10 text-base md:text-lg animate-fade-in-up animation-delay-300 hrw-only">
             {{ . }}
@@ -25,62 +23,32 @@
             {{ . }}
         </div>
         {{ end }}
-
         <div class="space-x-4 animate-fade-in-up animation-delay-600 hrw-only">
-            {{ with .Site.GetPage "/projects" }}
-            <a href="{{ .Permalink }}" class="btn btn-primary text-base md:text-lg px-6 py-3 md:px-8 md:py-3">View Projects</a>
-            {{ end }}
             {{ with .Site.GetPage "/cv" }}
             <a href="{{ .Permalink }}" class="btn btn-secondary text-base md:text-lg px-6 py-3 md:px-8 md:py-3">My CV</a>
             {{ end }}
         </div>
         <div class="space-x-4 lrw-only static-hero-buttons">
-            {{ with .Site.GetPage "/projects" }}
-            <a href="{{ .Permalink }}" class="btn btn-primary text-base md:text-lg px-6 py-3 md:px-8 md:py-3">View Projects</a>
-            {{ end }}
             {{ with .Site.GetPage "/cv" }}
             <a href="{{ .Permalink }}" class="btn btn-secondary text-base md:text-lg px-6 py-3 md:px-8 md:py-3">My CV</a>
             {{ end }}
         </div>
     </section>
 
-    {{/* Featured Work Section - WITH DEBUGGING */}}
-    {{ $featuredProjects := first 3 (where .Site.RegularPages.ByDate.Reverse "Section" "projects") }} {{/* Note: Using "Section" */}}
+    {{/* Featured Work Section - CLEAN, NO DEBUG */}}
+    {{ $featuredProjects := first 3 (where .Site.RegularPages.ByDate.Reverse "Section" "projects") }}
     {{ if $featuredProjects }}
     <section id="featured-work" class="container mx-auto px-4">
-        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Featured Work (Debug Info Below)</h2>
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Featured Work</h2>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {{ range $index, $project := $featuredProjects }}
-                <div class="debug-item" style="border: 1px solid red; padding: 10px; margin-bottom:10px; font-family: monospace; background-color: #f0f0f0; color: #333;">
-                    <h4 style="margin-bottom: 5px; font-weight: bold;">Debugging Project #{{ add $index 1 }}</h4>
-                    <p style="margin-bottom: 3px;"><strong>Title:</strong> {{ $project.Title | default "NO TITLE" }}</p>
-                    <p style="margin-bottom: 3px;"><strong>File Path:</strong> {{ $project.File.Path | default "NO FILE PATH" }}</p>
-                    <p style="margin-bottom: 3px;"><strong>Is it a Page?:</strong> {{ $project.IsPage | default "N/A" }}</p>
-                    <p style="margin-bottom: 3px;"><strong>Kind:</strong> {{ $project.Kind | default "N/A" }}</p>
-                    <p style="margin-bottom: 3px;"><strong>Type of Context (`$project`):</strong> {{ printf "%T" $project }}</p>
-                    <p style="margin-bottom: 3px;"><strong>Has .Permalink:</strong> {{ isset $project "Permalink" }}</p>
-                    {{ if isset $project "Permalink" }}
-                        <p style="margin-bottom: 3px;"><strong>.Permalink Value:</strong> {{ $project.Permalink }}</p>
-                    {{ else }}
-                        <p style="margin-bottom: 3px;"><strong>.Permalink Value:</strong> <span style="color: red; font-weight: bold;">NOT AVAILABLE</span></p>
-                    {{ end }}
-                    <p style="margin-bottom: 3px;"><strong>Date:</strong> {{ $project.Date.Format "2006-01-02" | default "NO DATE" }}</p>
-                    <p style="margin-bottom: 3px;"><strong>Params Type:</strong> {{ printf "%T" $project.Params }}</p>
-                    <p style="margin-bottom: 3px;"><strong>Params Image:</strong> {{ $project.Params.image | default "NO PARAMS.IMAGE" }}</p>
-
-                    <h5 style="margin-top:10px; margin-bottom: 5px; font-weight: bold;">Full $project Context:</h5>
-                    <pre style="white-space: pre-wrap; word-wrap: break-word; max-height: 200px; overflow-y: auto; background-color: #e0e0e0; padding: 5px;">{{ printf "%#v" $project }}</pre>
-                    <hr style="margin-top:10px;">
-                </div>
-                {{/* partial "card.html" $project */}} {{/* CRITICAL: The actual partial call is COMMENTED OUT for this debug step */}}
+                {{ partial "card.html" $project }}
             {{ else }}
-                 <p class="col-span-full text-center text-slate-500 dark:text-slate-400">No projects found in the 'projects' section. Please ensure they are in 'content/projects/' and have a valid 'date' in their front matter.</p>
+                <p class="col-span-full text-center text-slate-500 dark:text-slate-400">No projects found in the 'projects' section. Please ensure they are in 'content/projects/' and have a valid 'date' in their front matter.</p>
             {{ end }}
         </div>
         {{ with .Site.GetPage "/projects" }}
-        <div class="text-center mt-12">
-            <a href="{{ .Permalink }}" class="btn btn-secondary">View All Projects</a>
-        </div>
+        <!-- Removed View Projects button at top of Featured Work -->
         {{ end }}
     </section>
     {{ else }}
@@ -140,11 +108,7 @@
 <style>
     .lrw-only { display: none !important; }
     html.lrw-mode .lrw-only { display: block !important; }
-    
     .hrw-only { display: block !important; }
     html.lrw-mode .hrw-only { display: none !important; }
-
-    html.lrw-mode .static-hero-title { /* Add any specific LRW title styling if needed */ }
-    html.dark.lrw-mode .static-hero-title { /* Add any specific LRW title styling if needed for dark mode */ }
 </style>
 {{ end }}
