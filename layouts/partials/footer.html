@@ -19,12 +19,30 @@
                 <span class="sr-only">Email</span>
             </a>
             {{ end }}
+            {{ with .Site.Params.freelancer }}
+            <a href="{{ . }}" target="_blank" rel="noopener noreferrer" class="hover:text-accent dark:hover:text-accent transition-colors" title="Freelancer">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.5 2L2 9.5h4.5L12 2zm9 0l5.5 7.5H17L12 2zm-9 9.5l3.5 10.5L12 14.5l1.5 3.5L17 11.5zm9 0l-3.5 10.5L12 14.5l-1.5 3.5L7 11.5z"/></svg>
+                <span class="sr-only">Freelancer</span>
+            </a>
+            {{ end }}
+            {{ with .Site.Params.dribbble }}
+            <a href="{{ . }}" target="_blank" rel="noopener noreferrer" class="hover:text-accent dark:hover:text-accent transition-colors" title="Dribbble">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/><path d="M2.05 13A10 10 0 0022 12.94M8 2.5a10 10 0 018 0M4.24 19.76A10 10 0 0012 22a10 10 0 007.76-2.24M12 2a10 10 0 00-7.76 17.76" stroke="currentColor" stroke-width="2" fill="none"/><path d="M8 2.5c2.5 4.5 7.5 13 7.5 13" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+                <span class="sr-only">Dribbble</span>
+            </a>
+            {{ end }}
+            {{ with .Site.Params.instagram }}
+            <a href="{{ . }}" target="_blank" rel="noopener noreferrer" class="hover:text-accent dark:hover:text-accent transition-colors" title="Instagram">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2" fill="none"/><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="none"/><circle cx="17" cy="7" r="1.5" fill="currentColor"/></svg>
+                <span class="sr-only">Instagram</span>
+            </a>
+            {{ end }}
         </nav>
         <p class="built-with-ai mb-4 text-xs opacity-75">
-            {{ .Site.Params.builtWithAIStatement | default "This site was co-created with AI." | markdownify }}
+            {{ .Site.Params.builtWithAIStatement | default "This site is evolving 24/7 with Customized AI." | markdownify }}
         </p>
         <p class="copyright text-xs">
-            {{ .Site.Params.copyright | replace "{year}" now.Year | markdownify | default (printf "© %d %s" now.Year .Site.Params.author) }}
+            {{ .Site.Params.copyright | replace "{2025}" now.Year | markdownify | default (printf "© %d %s" now.Year .Site.Params.author) }}
         </p>
     </div>
 </footer>

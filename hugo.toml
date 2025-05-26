@@ -30,9 +30,12 @@ enableGitInfo = true # Useful for Lastmod dates
   tagline = "Architecting the Next Wave of Innovation with AI"
   # sidebarAvatar = "/images/abrar-avatar.png" # Abrar, you'll add your avatar here in static/images/
   
-  github = "https://github.com/yourusername" # Abrar, replace
-  linkedin = "https://linkedin.com/in/yourusername" # Abrar, replace
-  email = "youremail@example.com" # Abrar, replace
+  GitHub = "https://github.com/SophisticatedStupid"                            
+  Linkedin = "https://linkedin.com/in/khantahsinabrar" 
+  Email = "khan.tahsin.abrar.kta@gmail.com"
+  Freelancer = "https://www.freelancer.com/u/ktaxo"
+  Dribbble = "https://www.dribbble.com/khanTEAX"
+  Instagram = "https://www.instagram.com/khan_tahsin_ehan_abrar?igsh=YzljYTk1ODg3Zg=="
   # Add other social links if needed
 
   builtWithAIStatement = "This portfolio was architected by Khan Tahsin Abrar and co-created with advanced AI (Gemini 2.5 Pro), demonstrating mastery in prompt engineering and AI-driven development."
