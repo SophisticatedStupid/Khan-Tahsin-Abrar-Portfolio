@@ -50,10 +50,11 @@
     "name": "{{ $author }}",
     "url": "{{ .Site.BaseURL | absURL }}",
     {{ with .Site.Params.sidebarAvatar }} "image": "{{ . | absURL }}", {{ end }}
-    "sameAs": [
-        {{ with .Site.Params.github }}"{{ . }}",{{ end }}
-        {{ with .Site.Params.linkedin }}"{{ . }}"{{ end }}
-        {{ with .Site.Params.email }}"mailto:{{ . }}"{{ end }}
+    "sameAs": [{{- $sameAs := slice -}}
+        {{- with .Site.Params.github }}{{ $sameAs = $sameAs | append . }}{{ end -}}
+        {{- with .Site.Params.linkedin }}{{ $sameAs = $sameAs | append . }}{{ end -}}
+        {{- with .Site.Params.email }}{{ $sameAs = $sameAs | append (printf "mailto:%s" .) }}{{ end -}}
+        {{- delimit $sameAs "\",\n        \"" | printf "\"%s\"" | safeHTML -}}
     ],
     "description": "{{ .Site.Params.description | plainify }}"
     {{ else if $isPage }}

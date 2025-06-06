@@ -92,6 +92,84 @@
         {{ end }}
     </section>
 
+    {{/* Core Skills Section - Visually Modern with Animated Circular Progress Bars */}}
+    <section id="core-skills" class="py-16 bg-gradient-to-b from-[#062025] to-[#062c33] w-full">
+      <h2 class="text-4xl font-extrabold text-center text-sky-400 mb-12 tracking-wide">SOME OF MY SKILLS</h2>
+      <div style="display:flex;justify-content:center;width:100%;overflow-x:auto;padding:0 20px;">
+        <table style="border-collapse:collapse;margin:0 auto;background:none;border:none;table-layout:fixed;width:1400px;">
+          <tbody>
+            {{ $skills := slice
+              (dict "name" "AI Engineering" "percent" 80)
+              (dict "name" "Data Science" "percent" 75)
+              (dict "name" "LLM Tweaks" "percent" 75)
+              (dict "name" "Machine Learning" "percent" 75)
+              (dict "name" "CyberSecurity" "percent" 75)
+              (dict "name" "Web Dev" "percent" 70)
+              (dict "name" "UE 5" "percent" 60)
+              (dict "name" "Deep Learning" "percent" 65)
+              (dict "name" "SWE" "percent" 60)
+              (dict "name" "Graphic Design" "percent" 80)
+              (dict "name" "Logo Design" "percent" 85)
+              (dict "name" "poetry" "percent" 90)
+              (dict "name" "Philosophy" "percent" 90)
+              (dict "name" "IoT" "percent" 60)
+              (dict "name" "Robotics" "percent"  40)
+              (dict "name" "NLP" "percent" 25)
+              (dict "name" "SEO" "percent" 20)
+            }}
+            <tr>
+              {{ range $i, $skill := first 6 $skills }}
+              <td style="border:none;background:none;padding:12px 24px;text-align:center;width:16.66%;">
+                <div class="flex flex-col items-center">
+                  <div class="relative w-24 h-24 mb-2">
+                    <svg class="absolute top-0 left-0" width="96" height="96" viewBox="0 0 96 96">
+                      <circle cx="48" cy="48" r="42" stroke="#1de9b6" stroke-width="5" fill="none" opacity="0.15"/>
+                      <circle cx="48" cy="48" r="42" stroke="#1de9b6" stroke-width="5" fill="none" stroke-dasharray="264" stroke-dashoffset="{{ mul 264 (sub 1 (div $skill.percent 100.0)) }}" style="transition: stroke-dashoffset 1s;"/>
+                    </svg>
+                    <span class="absolute inset-0 flex items-center justify-center text-xl font-semibold text-teal-200">{{ $skill.percent }}%</span>
+                  </div>
+                  <span class="block text-base font-bold text-slate-100 text-center">{{ $skill.name }}</span>
+                </div>
+              </td>
+              {{ end }}
+            </tr>
+            <tr>
+              {{ range $i, $skill := after 6 (first 12 $skills) }}
+              <td style="border:none;background:none;padding:12px 24px;text-align:center;width:16.66%;">
+                <div class="flex flex-col items-center">
+                  <div class="relative w-24 h-24 mb-2">
+                    <svg class="absolute top-0 left-0" width="96" height="96" viewBox="0 0 96 96">
+                      <circle cx="48" cy="48" r="42" stroke="#1de9b6" stroke-width="5" fill="none" opacity="0.15"/>
+                      <circle cx="48" cy="48" r="42" stroke="#1de9b6" stroke-width="5" fill="none" stroke-dasharray="264" stroke-dashoffset="{{ mul 264 (sub 1 (div $skill.percent 100.0)) }}" style="transition: stroke-dashoffset 1s;"/>
+                    </svg>
+                    <span class="absolute inset-0 flex items-center justify-center text-xl font-semibold text-teal-200">{{ $skill.percent }}%</span>
+                  </div>
+                  <span class="block text-base font-bold text-slate-100 text-center">{{ $skill.name }}</span>
+                </div>
+              </td>
+              {{ end }}
+            </tr>
+            <tr>
+              {{ range $i, $skill := after 12 $skills }}
+              <td style="border:none;background:none;padding:12px 24px;text-align:center;width:16.66%;">
+                <div class="flex flex-col items-center">
+                  <div class="relative w-24 h-24 mb-2">
+                    <svg class="absolute top-0 left-0" width="96" height="96" viewBox="0 0 96 96">
+                      <circle cx="48" cy="48" r="42" stroke="#1de9b6" stroke-width="5" fill="none" opacity="0.15"/>
+                      <circle cx="48" cy="48" r="42" stroke="#1de9b6" stroke-width="5" fill="none" stroke-dasharray="264" stroke-dashoffset="{{ mul 264 (sub 1 (div $skill.percent 100.0)) }}" style="transition: stroke-dashoffset 1s;"/>
+                    </svg>
+                    <span class="absolute inset-0 flex items-center justify-center text-xl font-semibold text-teal-200">{{ $skill.percent }}%</span>
+                  </div>
+                  <span class="block text-base font-bold text-slate-100 text-center">{{ $skill.name }}</span>
+                </div>
+              </td>
+              {{ end }}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
     {{/* Call to Action or Contact Snippet - Placeholder */}}
     <section id="contact-snippet" class="container mx-auto px-4 text-center py-12">
         <h2 class="text-3xl md:text-4xl font-bold mb-6">Let's Connect</h2>
