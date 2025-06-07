@@ -65,3 +65,16 @@ export default class SquaresBG {
         requestAnimationFrame(this.animate);
     }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('squares-background');
+    if (container) {
+        new SquaresBG(container, {
+            speed: 0.5,
+            squareSize: 40,
+            direction: 'diagonal',
+            borderColor: '#999',
+            hoverFillColor: '#222',
+        });
+    }
+});

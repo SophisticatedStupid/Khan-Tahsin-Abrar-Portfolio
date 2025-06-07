@@ -1,5 +1,10 @@
 {{ define "main" }}
-<div class="homepage-content space-y-16 md:space-y-24 py-8 md:py-12">
+<div class="homepage-content space-y-16 md:space-y-24 py-8 md:py-12 relative">
+
+    <!-- Squares Background -->
+    <div id="squares-background" class="absolute inset-0 -z-10">
+        <script type="text/javascript" src="/js/squares-bg.js"></script>
+    </div>
 
     {{/* Hero Section */}}
     <section id="hero" class="hero text-center min-h-[60vh] md:min-h-[70vh] flex flex-col justify-center items-center px-4">
