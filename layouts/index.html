@@ -3,32 +3,18 @@
 
     {{/* Hero Section */}}
     <section id="hero" class="hero text-center min-h-[60vh] md:min-h-[70vh] flex flex-col justify-center items-center px-4">
-        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 animate-fade-in-down hrw-only">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 animate-fade-in-down">
             {{ .Site.Params.author | default .Site.Title }}
         </h1>
-        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 lrw-only static-hero-title">
-            {{ .Site.Params.author | default .Site.Title }}
-        </h1>
-        <p class="text-lg sm:text-xl md:text-2xl text-slate-700 dark:text-slate-300 mb-10 max-w-3xl mx-auto animate-fade-in-up animation-delay-300 hrw-only">
-            {{ .Site.Params.tagline | default "Welcome to my portfolio." | markdownify }}
-        </p>
-        <p class="text-lg sm:text-xl md:text-2xl text-slate-700 dark:text-slate-300 mb-10 max-w-3xl mx-auto lrw-only static-hero-tagline">
+        <p class="text-lg sm:text-xl md:text-2xl text-slate-700 dark:text-slate-300 mb-10 max-w-3xl mx-auto animate-fade-in-up animation-delay-300">
             {{ .Site.Params.tagline | default "Welcome to my portfolio." | markdownify }}
         </p>
         {{ with .Content }}
-        <div class="prose dark:prose-invert max-w-2xl mx-auto mb-10 text-base md:text-lg animate-fade-in-up animation-delay-300 hrw-only">
-            {{ . }}
-        </div>
-        <div class="prose dark:prose-invert max-w-2xl mx-auto mb-10 text-base md:text-lg lrw-only static-hero-content">
+        <div class="prose dark:prose-invert max-w-2xl mx-auto mb-10 text-base md:text-lg animate-fade-in-up animation-delay-300">
             {{ . }}
         </div>
         {{ end }}
-        <div class="space-x-4 animate-fade-in-up animation-delay-600 hrw-only">
-            {{ with .Site.GetPage "/cv" }}
-            <a href="{{ .Permalink }}" class="btn btn-secondary text-base md:text-lg px-6 py-3 md:px-8 md:py-3">My CV</a>
-            {{ end }}
-        </div>
-        <div class="space-x-4 lrw-only static-hero-buttons">
+        <div class="space-x-4 animate-fade-in-up animation-delay-600">
             {{ with .Site.GetPage "/cv" }}
             <a href="{{ .Permalink }}" class="btn btn-secondary text-base md:text-lg px-6 py-3 md:px-8 md:py-3">My CV</a>
             {{ end }}
